@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -9,20 +10,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       type: 'mysql',
       host: 'switchyard.proxy.rlwy.net',
       port: 11110,
-      username: 'root',
-      password: 'zuNcgyljCBRaIZDvkECEBqyxmZeFRSxV',
+      username: 'AdOrgonitas',
+      password: 'PassOrgo332211',
       database: 'Orgonitas',
       autoLoadEntities: true,
-      synchronize: false, // Set to true only in development
-      ssl: false
+      synchronize: false,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
+    UsuarioModule, 
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-
-
-
-
-}
+export class AppModule {}
