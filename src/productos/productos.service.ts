@@ -10,24 +10,23 @@ export class ProductosService {
     private readonly productoRepository: Repository<Producto>,
   ) {}
 
-  create(producto: Partial<Producto>) {
-    return this.productoRepository.save(producto);
+  async create(producto: Partial<Producto>): Promise<Producto> {
+    return await this.productoRepository.save(producto);
   }
 
-  findAll() {
-    return this.productoRepository.find();
+  async findAll(): Promise<Producto[]> {
+    return await this.productoRepository.find();
   }
 
-  findOne(id: number) {
-    return this.productoRepository.findOneBy({ id_producto: id });
+  async findOne(id: number): Promise<Producto | null> {
+    return await this.productoRepository.findOneBy({ id_producto: id });
   }
 
-  update(id: number, data: Partial<Producto>) {
-    return this.productoRepository.update(id, data);
+  async update(id: number, data: Partial<Producto>): Promise<void> {
+    await this.productoRepository.update(id, data);
   }
 
-  remove(id: number) {
-    return this.productoRepository.delete(id);
+  async remove(id: number): Promise<void> {
+    await this.productoRepository.delete(id);
   }
 }
-
