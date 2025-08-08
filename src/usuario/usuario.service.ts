@@ -10,23 +10,23 @@ export class UsuarioService {
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
 
-  create(usuario: Partial<Usuario>) {
-    return this.usuarioRepository.save(usuario);
+  async create(usuario: Partial<Usuario>): Promise<Usuario> {
+    return await this.usuarioRepository.save(usuario);
   }
 
-  findAll() {
-    return this.usuarioRepository.find();
+  async findAll(): Promise<Usuario[]> {
+    return await this.usuarioRepository.find();
   }
 
-  findOne(id: number) {
-    return this.usuarioRepository.findOneBy({ id });
+  async findOne(id: number): Promise<Usuario | null> {
+    return await this.usuarioRepository.findOneBy({ id });
   }
 
-  update(id: number, data: Partial<Usuario>) {
-    return this.usuarioRepository.update(id, data);
+  async update(id: number, data: Partial<Usuario>): Promise<void> {
+    await this.usuarioRepository.update(id, data);
   }
 
-  remove(id: number) {
-    return this.usuarioRepository.delete(id);
+  async remove(id: number): Promise<void> {
+    await this.usuarioRepository.delete(id);
   }
 }

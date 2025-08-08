@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuarioModule } from './usuario/usuario.module';
-
+import { ProductosModule } from './productos/productos.module';
+import { VentaModule } from './venta/venta.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,7 +20,9 @@ import { UsuarioModule } from './usuario/usuario.module';
         rejectUnauthorized: false,
       },
     }),
-    UsuarioModule, 
+    UsuarioModule,
+    ProductosModule, 
+    VentaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
