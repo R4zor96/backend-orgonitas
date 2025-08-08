@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from './usuario.entity';
 
@@ -26,12 +36,29 @@ export class UsuarioController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() body: Partial<Usuario>): Promise<void> {
+  async update(
+    @Param('id') id: string,
+    @Body() body: Partial<Usuario>,
+  ): Promise<void> {
     return await this.usuarioService.update(+id, body);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     return await this.usuarioService.remove(+id);
+  }
+
+  @Post('login')
+  async login(
+    @Body() body: { correo: string; password: string },
+  ): Promise<Usuario> {
+    const usuario = await this.usuarioService.findByCorreoAndPassword(
+      body.correo,
+      body.password,
+    );
+    if (!usuario) {
+      throw new UnauthorizedException('Correo o contraseña incorrectos');
+    }
+    return usuario; // aquí podrías devolver solo datos necesarios, no la contraseña
   }
 }

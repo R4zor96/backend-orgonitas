@@ -29,4 +29,13 @@ export class UsuarioService {
   async remove(id: number): Promise<void> {
     await this.usuarioRepository.delete(id);
   }
+
+  async findByCorreoAndPassword(
+    correo: string,
+    password: string,
+  ): Promise<Usuario | null> {
+    return await this.usuarioRepository.findOne({
+      where: { correo, password },
+    });
+  }
 }
